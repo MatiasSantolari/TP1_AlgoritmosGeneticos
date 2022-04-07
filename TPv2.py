@@ -121,6 +121,11 @@ print("fitness",listaFitness)
 print()
 print("la suma de todos los valores de la funcion objetivo es: ", suma(listaFunObj))
 print()
+
+tabla = pd.DataFrame({'pobl':listaPoblacionInicial,'X':listaDecimales, 'F obj':listaFunObj, 'Fitness':listaFitness})
+print(tabla)
+
+print()
 print(partRuleta(listaFitness))
 
 
@@ -130,4 +135,7 @@ print(partRuleta(listaFitness))
 #for l in range(4):
 #    print(listaPoblacionInicial[p], "     ",listaDecimales[p],"        ",listaFunObj[p],"        ",listaFitness[p])
 #    p+=1
+
+
+
 

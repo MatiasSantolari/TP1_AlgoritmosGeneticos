@@ -6,136 +6,159 @@ import numpy as np
 probabilidadCrossover = 0.75
 probabilidadMutacion = 0.05
 
+
 # funcion que crea un cromosoma de 30 genes, donde cada gen es un dígito binario 0 o 1
 def definirCromosoma():
-    cromosoma= ""
-    num=0
+    cromosoma = ""
+    num = 0
     for i in range(30):
-        num = str(random.randint(0,1)) # 
+        num = str(random.randint(0, 1))  #
         cromosoma += num
     return cromosoma
 
-    
- # funcion objetivo f(x) donde x es el número entero del cromosoma que se pasa como parámetro
-def funcionObjetivo(x:int):    
-    coef = (2**30)-1
-    funcObj= (x / coef)**2
-    return funcObj 
 
-def fitness(x,subLista) -> float: 
-    return x/sum(subLista)
+# funcion objetivo f(x) donde x es el número entero del cromosoma que se pasa como parámetro
+def funcionObjetivo(x: int):
+    coef = (2 ** 30) - 1
+    funcObj = (x / coef) ** 2
+    return funcObj
 
-# funcion para seleccionar un cromosoma aleatoriamente de la poblacion inicial
-def seleccionCromosoma(numero):
-    return random.choice(numero)
+
+def fitness(x, subLista) -> float:
+    return x / sum(subLista)
+
 
 def binarioAdecimal(subLista):
-    listaDec=[]    
+    listaDec = []
     for i in range(len(subLista)):
         cr = str(subLista[i])
-        a = int(cr,2)
+        a = int(cr, 2)
         listaDec.append(a)
     return listaDec
-    
+
+
 def aplicarFunObj(subLista):
-    listaF=[]
+    listaF = []
     for m in range(len(subLista)):
-        
-        f=funcionObjetivo(int(subLista[m]))
+        f = funcionObjetivo(int(subLista[m]))
         listaF.append(f)
     return listaF
-    
-def aplicarFitness(subLista):
-    listaFit=[]
-    for m in subLista:
-        f=fitness(m,subLista)
-        listaFit.append(f)
-    return listaFit # retorna una lista de flotantes
 
-def suma(listaFunObj): #suma todos los valores de la funcion objetivo de cada cromosoma
-    cont=0    
+
+def aplicarFitness(subLista):
+    listaFit = []
+    for m in subLista:
+        f = fitness(m, subLista)
+        listaFit.append(f)
+    return listaFit  # retorna una lista de flotantes
+
+
+def suma(listaFunObj):  # suma todos los valores de la funcion objetivo de cada cromosoma
+    cont = 0
     for u in range(len(listaFunObj)):
-        cont+= listaFunObj[u]
+        cont += listaFunObj[u]
     return cont
 
-def promedio(listaFunObj): #calcula el promedio 
-    suma=0    
+
+def promedio(listaFunObj):  # calcula el promedio
+    suma = 0
     for u in range(len(listaFunObj)):
-        suma= listaFunObj[u]
+        suma = listaFunObj[u]
     resultado = suma / len(listaFunObj)
     return resultado
 
-def maximo(listaFunObj): #devuelve el valor maximo de la lista funcion objetivo
+
+def maximo(listaFunObj):  # devuelve el valor maximo de la lista funcion objetivo
     return max(listaFunObj)
 
-#-----------------------------------------------------------------------------------------------------------
-#En esta seccion se van a ver las funciones o lo relacionado con la seleccion, crossover y mutacion
 
-def partRuleta(listaFitness): # se calcula el porcentaje de cada cromosoma y se le asigna
-                               #un arco de circunferencia proporcional a su fitness. porc 
+# -----------------------------------------------------------------------------------------------------------
+# En esta seccion se van a ver las funciones o lo relacionado con la seleccion, crossover y mutacion
+
+def partRuleta(listaFitness):  # se calcula el porcentaje de cada cromosoma y se le asigna
+    # un arco de circunferencia proporcional a su fitness. porc
     i = 0
-    listaPorcentajeFitness=[]
+    listaPorcentajeFitness = []
     for b in range(len(listaFitness)):
         den = sum(listaFitness)
-        nu = round((listaFitness[i]/den) * 100,2)
+        nu = round((listaFitness[i] / den) * 100, 2)
         listaPorcentajeFitness.append(nu)
-        i+=1     
+        i += 1
     return listaPorcentajeFitness
 
-def seleccionRuleta():
-    return
+
+def seleccionRuleta(ruleta, posiciones, poblacion):
+    #dict_from_list = dict(zip(list(range(10)), poblacion))
+    padres={}
+    poscRuleta=[]
+    for j in range(10):
+        a = random.randint(0, posiciones)
+        n=0
+        for i in ruleta:
+            n+=i
+            if a<=n:
+                poscRuleta.append(i)
+                padres[j]=i
+                break
+    print('dale que saleeeeeee')
+    print(poscRuleta)
+    print(padres)
+    #print(dict_from_list)
+
 
 def seleccionCrossover():
     return
 
+
 def seleccionMutacion():
     return
 
-    
-#Aca inicia el main del TP 
-i=0
-poblacion =[]   
-lista=[]
-listaPoblacionInicial=[]
-listaDecimales=[]
-listaFunObj=[]
-listaFitness=[]
+
+# Aca inicia el main del TP
+i = 0
+poblacion = []
+lista = []
+listaPoblacionInicial = []
+listaDecimales = []
+listaFunObj = []
+listaFitness = []
 for j in range(10):
     cromo = definirCromosoma()
     num = int(cromo)
-    lista.append(num)
-print (lista)
-print ()
-for k in range(4):
-    listaPoblacionInicial.append(seleccionCromosoma(lista))
-print("Los cromosomas seleccionados son " ,listaPoblacionInicial) #contiene los cromosomas seleccionados
+    listaPoblacionInicial.append(num)
+print("Los cromosomas seleccionados son ", listaPoblacionInicial)  # contiene los cromosomas
+listaPoblacionInicial.sort()
+print()
 print()
 listaDecimales.extend(binarioAdecimal(listaPoblacionInicial))
-print("Los numeros decimales de cada cromosoma correspondiente son " ,listaDecimales)
+print("Los numeros decimales de cada cromosoma correspondiente son ", listaDecimales)
 print()
 listaFunObj.extend(aplicarFunObj(listaDecimales))
-print("valor de la funcion objetivo de cada cromosoma:",listaFunObj)
+print("valor de la funcion objetivo de cada cromosoma:", listaFunObj)
 print()
 listaFitness.extend(aplicarFitness(listaFunObj))
-print("fitness",listaFitness)
+print("fitness", listaFitness)
 print()
 print("la suma de todos los valores de la funcion objetivo es: ", suma(listaFunObj))
 print()
 
-tabla = pd.DataFrame({'pobl':listaPoblacionInicial,'X':listaDecimales, 'F obj':listaFunObj, 'Fitness':listaFitness})
+tabla = pd.DataFrame(
+    {'pobl': listaPoblacionInicial, 'X': listaDecimales, 'F obj': listaFunObj, 'Fitness': listaFitness})
 print(tabla)
 
 print()
 print(partRuleta(listaFitness))
+print()
 
+ruleta = []
+for i in partRuleta(listaFitness):
+    if i > 1:
+        n = round(i, 0)
+        ruleta.append(n)
+    else:
+        ruleta.append(1)
 
-#p=0
-#print("Binario                                   X          Funcion Objetivo               Fitness")
-#print()
-#for l in range(4):
-#    print(listaPoblacionInicial[p], "     ",listaDecimales[p],"        ",listaFunObj[p],"        ",listaFitness[p])
-#    p+=1
-
-
-
+print(ruleta)
+print(int(sum(ruleta)))
+seleccionRuleta(ruleta, int(sum(ruleta)), listaPoblacionInicial)
 

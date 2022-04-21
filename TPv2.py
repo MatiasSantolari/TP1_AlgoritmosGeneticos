@@ -86,11 +86,11 @@ def partRuleta(listaFitness):  # se calcula el porcentaje de cada cromosoma y se
         i += 1
     return listaPorcentajeFitness
 
-
-def seleccionRuleta(ruleta, posiciones, poblacion):
+'''
+def seleccionRuleta(ruleta, posiciones, poblacion): #posiciones es int(sum(ruleta)) 
     #dict_from_list = dict(zip(list(range(10)), poblacion))
-    padres={}
-    poscRuleta=[]
+    padres={} #definicion de la tupla padres
+    poscRuleta=[] #definicion de la list poscRuleta
     for j in range(10):
         a = random.randint(0, posiciones)
         n=0
@@ -100,13 +100,45 @@ def seleccionRuleta(ruleta, posiciones, poblacion):
                 poscRuleta.append(i)
                 padres[j]=i
                 break
-    print('dale que saleeeeeee')
+    # print('dale que saleeeeeee')
     print(poscRuleta)
     print(padres)
-    #print(dict_from_list)
+    #print(dict_from_list)'''
 
+def seleccionRuleta(ruleta, posiciones, poblacion): #posiciones es int(sum(ruleta))
+    ruletaDefinitiva=[]
+    padres=[]
+    for i in range(10):
+        for j in range(ruleta[i]):
+            ruletaDefinitiva.append(poblacion[i])
+    for k in range(10):
+        a = random.randint(0, posiciones)
+        padres.append(ruletaDefinitiva[a])
+    return padres
 
-def seleccionCrossover():
+def seleccionCrossover(padres):
+    # para pasar de un numero entero a una lista de enteros
+    '''num = 1010
+    print (str(num))
+    lis = list(map(int,str(num)))
+    print(lis)'''
+    
+    # hago la lista de par de padres
+    '''n=0
+    lista=[]
+    for i in range(5):
+        lista.append([n,n+1])
+        n+=2
+        print(lista)'''
+    
+    for i in range(5):
+        for j in padres:
+        a = random.randint(0, 1)
+        if (a <= probabilidadCrossover):
+            pass
+        else:
+            listaHijos.append()
+        
     return
 
 
@@ -122,6 +154,8 @@ listaPoblacionInicial = []
 listaDecimales = []
 listaFunObj = []
 listaFitness = []
+listaPadres = []
+listaHijos = []
 for j in range(10):
     cromo = definirCromosoma()
     num = int(cromo)
@@ -147,18 +181,21 @@ tabla = pd.DataFrame(
 print(tabla)
 
 print()
-print(partRuleta(listaFitness))
+print('los porcentajes de cada cromosoma dependiendo de su funcion fitnes es', partRuleta(listaFitness))
 print()
 
 ruleta = []
 for i in partRuleta(listaFitness):
     if i > 1:
         n = round(i, 0)
-        ruleta.append(n)
+        ruleta.append(int(n))
     else:
         ruleta.append(1)
 
-print(ruleta)
-print(int(sum(ruleta)))
-seleccionRuleta(ruleta, int(sum(ruleta)), listaPoblacionInicial)
+print('redondeo de los procentajes de cada cromosoma dependiendo de su funcion fitnes y que no haya perocentajes menores a 1:', ruleta)
+print()
+print('comprobacion que la suma de los porcentajes da 100:',int(sum(ruleta)))
+print()
+listaPadres.extend(seleccionRuleta(ruleta, int(sum(ruleta)), listaPoblacionInicial))
+print('La lista de los padres es: ',listaPadres)
 

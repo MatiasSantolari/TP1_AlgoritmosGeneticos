@@ -133,7 +133,7 @@ def seleccionCrossover(padres):
     
     for i in range(5):
         for j in padres:
-        a = random.randint(0, 1)
+            a = random.randint(0, 1)
         if (a <= probabilidadCrossover):
             pass
         else:
@@ -150,6 +150,7 @@ def seleccionMutacion():
 i = 0
 poblacion = []
 lista = []
+listaPoblacionInicialCadena = []
 listaPoblacionInicial = []
 listaDecimales = []
 listaFunObj = []
@@ -158,10 +159,12 @@ listaPadres = []
 listaHijos = []
 for j in range(10):
     cromo = definirCromosoma()
+    listaPoblacionInicialCadena.append(cromo)
     num = int(cromo)
     listaPoblacionInicial.append(num)
 print("Los cromosomas seleccionados son ", listaPoblacionInicial)  # contiene los cromosomas
 listaPoblacionInicial.sort()
+listaPoblacionInicialCadena.sort()
 print()
 print()
 listaDecimales.extend(binarioAdecimal(listaPoblacionInicial))
@@ -198,4 +201,7 @@ print('comprobacion que la suma de los porcentajes da 100:',int(sum(ruleta)))
 print()
 listaPadres.extend(seleccionRuleta(ruleta, int(sum(ruleta)), listaPoblacionInicial))
 print('La lista de los padres es: ',listaPadres)
+
+print("Prueba cadena")
+print(listaPoblacionInicialCadena)
 

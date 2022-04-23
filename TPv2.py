@@ -130,7 +130,15 @@ def seleccionCrossover(padres):
         lista.append([n,n+1])
         n+=2
         print(lista)'''
-    
+
+    #entre el 1 y el 2:
+    a = random.randint(0, 1)
+    if (a <= probabilidadCrossover):
+        listaHijos.append(aplicarCrossover(padres[1],padres[2]))
+    else:
+        listaHijos.append(padres[1])
+        listaHijos.append(padres[2])
+
     for i in range(5):
         for j in padres:
             a = random.randint(0, 1)
@@ -144,6 +152,19 @@ def seleccionCrossover(padres):
 
 def seleccionMutacion():
     return
+
+def aplicarCrossover(padre1,padre2):
+    aux=[]
+    a = random.randint(0, 29)
+
+    for j in range(a):
+        aux.append(padre1[j])
+
+    for i in range(a, len(padre1)):
+        aux.append(padre2[i])
+        padre2[i] = padre1[i]
+
+    return(aux,padre2)
 
 
 # Aca inicia el main del TP
@@ -199,9 +220,10 @@ print('redondeo de los procentajes de cada cromosoma dependiendo de su funcion f
 print()
 print('comprobacion que la suma de los porcentajes da 100:',int(sum(ruleta)))
 print()
-listaPadres.extend(seleccionRuleta(ruleta, int(sum(ruleta)), listaPoblacionInicial))
+listaPadres.extend(seleccionRuleta(ruleta, int(sum(ruleta)), listaPoblacionInicialCadena))
 print('La lista de los padres es: ',listaPadres)
 
 print("Prueba cadena")
+print(listaPoblacionInicial)
 print(listaPoblacionInicialCadena)
 

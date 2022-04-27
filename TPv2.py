@@ -219,8 +219,12 @@ miniIbj = 0 #contiene el valor minimo de la funcion objetivo del cromosoma en la
 prome = 0 #contiene el promedio de la lista que tiene los valores de la funcion objetivo de cada cromosoma, es decir de la poblacion, en formato FLOTANTE
 cromosomaMaximo = 0 #contiene el cromosoma binario en formato ENTERO con el mayor valor de la funcion objetivo
 
-def funcionPrincipal(listaPoblacionInicial, listaPoblacionInicialCadena):
-    
+def funcionPrincipal(listaPoblacionInicial, listaPoblacionInicialCadena, iteracion, listaMinimosFit, listaMaximosFit, listaPromFit, listaMinimosObj, listaMaximosObj, listaPromObj):
+    listaDecimales = []
+    listaFunObj = []
+    listaFitness = []
+    listaPadres = []
+
     listaDecimales.extend(binarioAdecimal(listaPoblacionInicial)) #listaDecimales es una lista que contiene
     print("Los numeros decimales de cada cromosoma correspondiente son ", listaDecimales)
     print()
@@ -242,7 +246,16 @@ def funcionPrincipal(listaPoblacionInicial, listaPoblacionInicialCadena):
     miniFit = minimo(listaFitness)
     promeFit = promedio(listaFitness)
     #
-        
+
+    # Guardamos maxiObj, miniObj, promeObj, maxiFit, miniFit, promeFit sus respectivas listas
+    listaMinimosFit.append(miniFit)
+    listaMaximosFit.append(maxiFit)
+    listaPromFit.append(promeFit)
+    listaMinimosObj.append(miniObj)
+    listaMaximosObj.append(maxiObj)
+    listaPromObj.append(promeObj)
+
+    print('Datos de la Generacion nro: ', iteracion)
     tabla = pd.DataFrame( 
         {'pobl': listaPoblacionInicial, 'X': listaDecimales, 'F obj': listaFunObj, 'Fitness': listaFitness})
     print(tabla)
@@ -303,11 +316,17 @@ listaPoblacionInicial.sort() # con la funcion sort ordena la lista de menor a ma
 listaPoblacionInicialCadena.sort()
 print()
 print()
+listaMinimosFit=[]
+listaMaximosFit=[]
+listaPromFit=[]
+listaMinimosObj=[]
+listaMaximosObj=[]
+listaPromObj=[]
+
 for p in range(20):
     # PASAR DE FORMATO LISTA DE LISTA DE ENTEROS BINARIOS A LISTA DE ENTEROS Y LISTA DE STRING 
-    nuevaGeneracion = funcionPrincipal(listaPoblacionInicial, listaPoblacionInicialCadena)
-    
-    listaPoblacionInicial = nuevaGeneracion
+    nuevaGeneracion = funcionPrincipal(listaPoblacionInicial, listaPoblacionInicialCadena, p+1, listaMinimosFit, listaMaximosFit, listaPromFit, listaMinimosObj, listaMaximosObj, listaPromObj)
+
     listaCorrectaCadena = []
     listaCorrectaNro = []
 
@@ -321,6 +340,10 @@ for p in range(20):
 
     listaPoblacionInicial=listaCorrectaNro
     listaPoblacionInicialCadena=listaCorrectaCadena
+
+tablaDatos = pd.DataFrame({'min fit': listaMinimosFit, 'max fit': listaMaximosFit, 'promedio fit': listaPromFit,
+                           'min obj': listaMinimosObj, 'max obj': listaMaximosObj, 'promedio obj': listaPromObj})
+print(tablaDatos)
 
     
 

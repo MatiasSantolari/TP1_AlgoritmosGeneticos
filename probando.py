@@ -26,7 +26,7 @@ cromosoma = ""
     return cromosoma
     '''
 
-
+'''
 nuevaG=[[1,0,1,0],[0,1,0,0],[0,0,1,1]]
 listaPrueba=["jasjdjajsdjas", 2222 , [1,2,3,4]]
 listaCorrectaCadena=[]
@@ -45,6 +45,37 @@ print(listaCorrectaCadena)
 print(listaCorrectaNro)
 listaPrueba=listaCorrectaCadena
 print(listaPrueba)
+'''
+import random
+import pandas as pd
+
+listaPrueba=[]
+for i in range(4):
+    a=random.randint(1,10)
+    b=random.randint(1,1000)
+    c=random.randint(1,5)
+
+    listaPrueba.append([a,b,c])
+
+print (listaPrueba)
+
+#--------------
+listaA=[]
+listaB=[]
+listaC=[]
+print('Datos Globales')
+for i in range (len(listaPrueba)):
+    a=listaPrueba[i][0]
+    b=listaPrueba[i][1]
+    c=listaPrueba[i][2]
+
+    listaA.append(a)
+    listaB.append(b)
+    listaC.append(c)
+
+tabla = pd.DataFrame({'min': listaA, 'max': listaB, 'promedio': listaC})
+print(tabla)
+
 
 
 

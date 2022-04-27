@@ -292,7 +292,7 @@ def funcionPrincipal(listaPoblacionInicial, listaPoblacionInicialCadena):
     
 
 #Se creau una sola vez la poblacion inicial (definir los cromosomas...)
-nuevaGeneracion #lista de cromosomas donde cada cromosoma es una lista de ENTEROS
+#nuevaGeneracion = lista de cromosomas donde cada cromosoma es una lista de ENTEROS
 for j in range(10):
     cromo = definirCromosoma() #definirCromosoma devuelve los 30 digitos binarios pero en formatio string
     listaPoblacionInicialCadena.append(cromo) # esta lista es una lista de cromosomas en formato string 
@@ -308,6 +308,20 @@ for p in range(20):
     nuevaGeneracion = funcionPrincipal(listaPoblacionInicial, listaPoblacionInicialCadena)
     
     listaPoblacionInicial = nuevaGeneracion
+    listaCorrectaCadena = []
+    listaCorrectaNro = []
+
+    for i in range(len(nuevaGeneracion)):
+        print()
+        a = ""
+        for j in nuevaGeneracion[i]:
+            a += str(j)
+        listaCorrectaCadena.append(a)
+        listaCorrectaNro.append(int(a))
+
+    listaPoblacionInicial=listaCorrectaNro
+    listaPoblacionInicialCadena=listaCorrectaCadena
+
     
 
 """Al finalizar el programa tiene que mostrar

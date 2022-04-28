@@ -79,7 +79,7 @@ def minimo(lista): # devuelve el valor minimo de la lista funcion objetivo en fo
     return min(lista)
 
 def cromoMaximo(listaPoblacionInicial):
-    valor = listaPoblacionInicial[9] #como listaPoblacionInicial esta ordenada de menor a mayor, siempre vamos a queres el cromosoma en la ultima posicion(que en esta caso es 9) que seria 
+    valor = listaPoblacionInicial[9] #como esta ordenada de menor a mayor, siempre vamos a queres el cromosoma en la ultima posicion(que en esta caso es 9) que seria 
                                      #el cromosoma con el valor de la funcion objetivo mas alto
     return valor #valor contiene el cromosoma en formato ENTERO con mayor valor de la funcion objetivo
 
@@ -93,93 +93,31 @@ def partRuleta(listaFitness):  # se calcula el porcentaje de cada cromosoma y se
     listaPorcentajeFitness = []
     for b in range(len(listaFitness)):
         den = sum(listaFitness)
-        nu = round((listaFitness[i] / den) * 100, 2)
+        nu = round((listaFitness[i] / den) * 100, 2) 
         listaPorcentajeFitness.append(nu) 
         i += 1
     return listaPorcentajeFitness #listaProcentajeFitness es una lista que va a tener los porcentajes en formato FLOTANTE de cada cromosoma segun su valor de la funcion fitness
 
-'''
-def seleccionRuleta(ruleta, posiciones, poblacion): #posiciones es int(sum(ruleta)) 
-    #dict_from_list = dict(zip(list(range(10)), poblacion))
-    padres={} #definicion de la tupla padres
-    poscRuleta=[] #definicion de la list poscRuleta
-    for j in range(10):
-        a = random.randint(0, posiciones)
-        n=0
-        for i in ruleta:
-            n+=i
-            if a<=n:
-                poscRuleta.append(i)
-                padres[j]=i
-                break
-    # print('dale que saleeeeeee')
-    print(poscRuleta)
-    print(padres)
-    #print(dict_from_list)'''
+
 
 def seleccionRuleta(ruleta, posiciones, poblacion): #ruleta es la lista de valores ENTEROS de los porcentajes de los cromosomas segun su funcion fitness 
                                                     #posiciones es int(sum(ruleta)) que seria el valor ENTERO de la suma de los valores de la lista ruleta.
                                                     #poblacion es listaPoblacionInicialCadena que es la lista de los cromosomas en digitos binarios en formato STRING
+    print("ruleta ",ruleta)
+    print ("la cantidad de posiciones en la ruleta son, posiciones:",posiciones)
+    print ("la lista poblacion inicial cadena es: ",poblacion)
+    print ("el largo de lista poblacion inicial cadena es: ",len(poblacion))
+    
     ruletaDefinitiva=[] #es la lista de 100 posiciones en donde a cada posicion de esta lista se le asigna el cromosoma en formato STRING en la posicion i de la lista poblacion
     padres=[] #es la lista con los cromosomas en formato STRING que fueron seleccionados en la lista ruletaDefinitiva, que serian los padres
     for i in range(10):
         for j in range(ruleta[i]):
-            ruletaDefinitiva.append(poblacion[i])
+            ruletaDefinitiva.append(poblacion[i]) #el tamaño de ruletaDefinitiva es posiciones->int(suma(ruleta))
     for k in range(10):
-        a = random.randint(0, posiciones) # genera un numero entero entre 0 y posiciones (que seria 100 aprox). Seria la "Tirada de la bolita en la ruleta"
+        a = random.randint(0, posiciones-1) # genera un numero entero entre 0 y posiciones (que seria 100 aprox). Seria la "Tirada de la bolita en la ruleta"
         padres.append(ruletaDefinitiva[a]) # se agrega en padres el cromosoma en formato STRING en la lista ruletaDefinitiva en la posicion elegida aleatoriamente. Seria "El lugar donde cayo la bola al girar la ruleta"
     return padres #es la lista con los cromosomas en formato STRING que fueron seleccionados en la lista ruletaDefinitiva al girarla 10 veces, ya que los padres deben ser 10
 
-"""def seleccionCrossover(padres):
-    # para pasar de un numero entero a una lista de enteros
-    '''num = 1010
-    print (str(num))
-    lis = list(map(int,str(num)))
-    print(lis)'''
-    
-    # hago la lista de par de padres
-    '''n=0
-    lista=[]
-    for i in range(5):
-        lista.append([n,n+1])
-        n+=2
-        print(lista)'''
-
-    #entre el 1 y el 2:
-    a = random.uniform(0, 1)
-    if (a <= probabilidadCrossover):
-        listaHijos.append(aplicarCrossover(padres[1],padres[2]))
-    else:
-        listaHijos.append(padres[1])
-        listaHijos.append(padres[2])
-
-    for i in range(5): #que se hace en este for
-        for j in padres:
-            a = random.randint(0, 1)
-        if (a <= probabilidadCrossover):
-            pass
-        else:
-            listaHijos.append()
-        
-    return
-
-
-def seleccionMutacion():
-    return
-
-def aplicarCrossover(padre1,padre2):
-    aux=[]
-    a = random.randint(0, 29)
-
-    for j in range(a):
-        aux.append(padre1[j])
-
-    for i in range(a, len(padre1)):
-        aux.append(padre2[i])
-        padre2[i] = padre1[i]
-
-    return(aux,padre2)
-"""
 
 def seleccionCrossover(cromo1, cromo2): #cromo 1 y cromo 2 van a tener c/u el cromosoma en formato ENTERO donde cada posicion es un gen binario ENTERO y cromosoma es un padre (ya convertido a ENTERO) de la listaPadres 
    
@@ -202,37 +140,26 @@ def mutacion(cromo1): #le paso el cromosoma despues de haber con el croosover (p
             cromo1[i]=0
     return cromo1 #cromo1 es un cromosoma, que a la vez es una lista de genes donde c/gen es un ENTERO binario
         
-
-# Aca inicia el main del TP
-i = 0
-poblacion = []
-lista = []
-listaPoblacionInicialCadena = [] #lista de cromosomas binarios en formato string 
-listaPoblacionInicial = [] #lista de cromosomas con digitos binarios en formato enteros
-listaDecimales = [] # lista que contiene a los cromosomas en valor decimal correspondiente en formato entero
-listaFunObj = [] #lista que contiene los valores en formato FLOTANTE de la funcion objetivo de cada cromosoma correspondiente a la posicion en listaDecimales
-listaFitness = [] #lista de los valores de la funcion Fitness aplicadas a los cromosomas de la listaFunObj en formato flotante
-listaPadres = [] #lista que tiene los cromosomas en formato STRING que seran los padres para obtener a los hijos de la siguiente generacion
-listaSiguienteGeneracion = [] #lista que tiene listas en donde c/u de esas listas es un cromosoma, es decir, es una lista de 30 posiciones donde cada posicion es un gen ENTERO binario
-maxiObj = 0 #contiene el valor maximo de la funcion objetivo del cromosoma en la listaFuncObj en formato FLOTANTE
-miniIbj = 0 #contiene el valor minimo de la funcion objetivo del cromosoma en la listaFuncObj en formato FLOTANTE
-prome = 0 #contiene el promedio de la lista que tiene los valores de la funcion objetivo de cada cromosoma, es decir de la poblacion, en formato FLOTANTE
-cromosomaMaximo = 0 #contiene el cromosoma binario en formato ENTERO con el mayor valor de la funcion objetivo
+#-----------------------------------------------------------------------------
 
 def funcionPrincipal(listaPoblacionInicial, listaPoblacionInicialCadena, iteracion, listaMinimosFit, listaMaximosFit, listaPromFit, listaMinimosObj, listaMaximosObj, listaPromObj):
+    
     listaDecimales = []
     listaFunObj = []
     listaFitness = []
     listaPadres = []
 
-    listaDecimales.extend(binarioAdecimal(listaPoblacionInicial)) #listaDecimales es una lista que contiene
+    listaDecimales.extend(binarioAdecimal(listaPoblacionInicial)) #listaDecimales es una lista que contiene valores decimales ENTEROS
     print("Los numeros decimales de cada cromosoma correspondiente son ", listaDecimales)
+    print("El largo de listaDecimales debe ser 10: ", len(listaDecimales))
     print()
     listaFunObj.extend(aplicarFunObj(listaDecimales)) #listaFunObj es la lista que contiene los valores en formato FLOTANTE de la funcion objetivo de cada cromosoma correspondiente a la posicion en listaDecimales
     print("valor de la funcion objetivo de cada cromosoma:", listaFunObj)
+    print("El largo de listaFunObj debe ser 10: ", len(listaFunObj))
     print()
     listaFitness.extend(aplicarFitness(listaFunObj)) #listaFitness es una lista en formato FLOTANTE con el valor de la funcion fitness aplicada a cada cromosoma de la lista listaFunObj
     print("fitness", listaFitness)
+    print("El largo de listaFitness debe ser 10: ", len(listaFitness))
     print()
     print("la suma de todos los valores de la funcion objetivo es: ", suma(listaFunObj))
     print()
@@ -281,14 +208,16 @@ def funcionPrincipal(listaPoblacionInicial, listaPoblacionInicialCadena, iteraci
     print('comprobacion que la suma de los porcentajes da 100:',int(sum(ruleta)))
     print()
     listaPadres.extend(seleccionRuleta(ruleta, int(sum(ruleta)), listaPoblacionInicialCadena))
-    print('La lista de los padres es: ',listaPadres) #listaPadres tiene los cromosomas en formato STRING para aplicar el Crossover y Mutacion
+    print("listaPoblacionInicialCadena:",listaPoblacionInicialCadena)
+    print('La lista de los padres es: ',listaPadres, ' cant: ', len(listaPadres)) #listaPadres tiene los cromosomas en formato STRING para aplicar el Crossover y Mutacion
     
-    '''print("Prueba cadena")
-    print(listaPoblacionInicial)
-    print(listaPoblacionInicialCadena)'''
     
     #OBSERVACION: Las cadenas son inherentemente iterables, lo que significa que la iteración sobre una cadena da cada carácter como salida.
     z=0
+    i=0
+    hijo1=0
+    hijo2=0
+    listaSiguienteGeneracion=[]
     for i in range(5): #se repite 5 veces xq hay 5 pares de cromosomas padres para aplicar el crossover
         c1= [int(x) for x in str(listaPadres[z])] # c1 es una lista en formato ENTERO donde cada posicion contiene un gen, es decir c1 es un cromosoma padre
         c2 = [int(x) for x in str(listaPadres[z+1])] # c2 es una lista en formato ENTERO donde cada posicion contiene un gen, es decir c2 es un cromosoma padre
@@ -301,8 +230,26 @@ def funcionPrincipal(listaPoblacionInicial, listaPoblacionInicialCadena, iteraci
         listaSiguienteGeneracion.append(hijo1)
         listaSiguienteGeneracion.append(hijo2)
     print (listaSiguienteGeneracion)
-    return (listaSiguienteGeneracion)
+    print("VVVVVVVVVVVVVV ",len(listaSiguienteGeneracion))
     
+    return (listaSiguienteGeneracion)
+
+
+
+#--------------------------------------------------------------------------------------------   
+poblacion = []
+lista = []
+listaPoblacionInicialCadena = [] #lista de cromosomas binarios en formato string 
+listaPoblacionInicial = [] #lista de cromosomas con digitos binarios en formato enteros
+listaDecimales = [] # lista que contiene a los cromosomas en valor decimal correspondiente en formato entero
+listaFunObj = [] #lista que contiene los valores en formato FLOTANTE de la funcion objetivo de cada cromosoma correspondiente a la posicion en listaDecimales
+listaFitness = [] #lista de los valores de la funcion Fitness aplicadas a los cromosomas de la listaFunObj en formato flotante
+listaPadres = [] #lista que tiene los cromosomas en formato STRING que seran los padres para obtener a los hijos de la siguiente generacion
+listaSiguienteGeneracion = [] #lista que tiene listas en donde c/u de esas listas es un cromosoma, es decir, es una lista de 30 posiciones donde cada posicion es un gen ENTERO binario
+maxiObj = 0 #contiene el valor maximo de la funcion objetivo del cromosoma en la listaFuncObj en formato FLOTANTE
+miniIbj = 0 #contiene el valor minimo de la funcion objetivo del cromosoma en la listaFuncObj en formato FLOTANTE
+prome = 0 #contiene el promedio de la lista que tiene los valores de la funcion objetivo de cada cromosoma, es decir de la poblacion, en formato FLOTANTE
+cromosomaMaximo = 0 #contiene el cromosoma binario en formato ENTERO con el mayor valor de la funcion objetivo
 
 #Se creau una sola vez la poblacion inicial (definir los cromosomas...)
 #nuevaGeneracion = lista de cromosomas donde cada cromosoma es una lista de ENTEROS
@@ -312,6 +259,7 @@ for j in range(10):
     num = int(cromo) #num tiene el cromosoma pero en formato entero 
     listaPoblacionInicial.append(num) #esta lista es una lista de cromosomas en formato enteros
 print("Los cromosomas seleccionados son ", listaPoblacionInicial)  # contiene los cromosomas en formato enteros
+print("los cromosomas de listaPoblacionInicialCadema es ", listaPoblacionInicialCadena )
 listaPoblacionInicial.sort() # con la funcion sort ordena la lista de menor a mayor
 listaPoblacionInicialCadena.sort()
 print()
@@ -323,10 +271,9 @@ listaMinimosObj=[]
 listaMaximosObj=[]
 listaPromObj=[]
 
-for p in range(20):
-    # PASAR DE FORMATO LISTA DE LISTA DE ENTEROS BINARIOS A LISTA DE ENTEROS Y LISTA DE STRING 
+for p in range(20): #corridas de 20 veces
+    
     nuevaGeneracion = funcionPrincipal(listaPoblacionInicial, listaPoblacionInicialCadena, p+1, listaMinimosFit, listaMaximosFit, listaPromFit, listaMinimosObj, listaMaximosObj, listaPromObj)
-
     listaCorrectaCadena = []
     listaCorrectaNro = []
 
@@ -337,13 +284,15 @@ for p in range(20):
             a += str(j)
         listaCorrectaCadena.append(a)
         listaCorrectaNro.append(int(a))
-
+    
     listaPoblacionInicial=listaCorrectaNro
+    print("listaCorrectaNro: ",listaPoblacionInicial, " cant: ",len(listaCorrectaNro))
     listaPoblacionInicialCadena=listaCorrectaCadena
+    print("listaCorrectaCadena: ",listaPoblacionInicialCadena, " cant: ",len(listaCorrectaCadena))
 
-tablaDatos = pd.DataFrame({'min fit': listaMinimosFit, 'max fit': listaMaximosFit, 'promedio fit': listaPromFit,
-                           'min obj': listaMinimosObj, 'max obj': listaMaximosObj, 'promedio obj': listaPromObj})
-print(tablaDatos)
+#tablaDatos = pd.DataFrame({'min fit': listaMinimosFit, 'max fit': listaMaximosFit, 'promedio fit': listaPromFit,
+                           #'min obj': listaMinimosObj, 'max obj': listaMaximosObj, 'promedio obj': listaPromObj})
+#print(tablaDatos)
 
     
 

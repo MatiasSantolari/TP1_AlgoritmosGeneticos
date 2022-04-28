@@ -46,6 +46,8 @@ print(listaCorrectaNro)
 listaPrueba=listaCorrectaCadena
 print(listaPrueba)
 '''
+
+'''
 import random
 import pandas as pd
 
@@ -76,8 +78,12 @@ for i in range (len(listaPrueba)):
 tabla = pd.DataFrame({'min': listaA, 'max': listaB, 'promedio': listaC})
 print(tabla)
 
+'''
 
-
+lista=[1,2,3,4,5,5]
+print(lista)
+lista=[]
+print(lista)
 
 
 

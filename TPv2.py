@@ -209,11 +209,15 @@ def funcionPrincipal(listaPoblacionInicial, listaPoblacionInicialCadena, iteraci
     print()
     listaPadres.extend(seleccionRuleta(ruleta, int(sum(ruleta)), listaPoblacionInicialCadena))
     print("listaPoblacionInicialCadena:",listaPoblacionInicialCadena)
-    print('La lista de los padres es: ',listaPadres) #listaPadres tiene los cromosomas en formato STRING para aplicar el Crossover y Mutacion
+    print('La lista de los padres es: ',listaPadres, ' cant: ', len(listaPadres)) #listaPadres tiene los cromosomas en formato STRING para aplicar el Crossover y Mutacion
     
     
     #OBSERVACION: Las cadenas son inherentemente iterables, lo que significa que la iteración sobre una cadena da cada carácter como salida.
     z=0
+    i=0
+    hijo1=0
+    hijo2=0
+    listaSiguienteGeneracion=[]
     for i in range(5): #se repite 5 veces xq hay 5 pares de cromosomas padres para aplicar el crossover
         c1= [int(x) for x in str(listaPadres[z])] # c1 es una lista en formato ENTERO donde cada posicion contiene un gen, es decir c1 es un cromosoma padre
         c2 = [int(x) for x in str(listaPadres[z+1])] # c2 es una lista en formato ENTERO donde cada posicion contiene un gen, es decir c2 es un cromosoma padre
@@ -226,6 +230,7 @@ def funcionPrincipal(listaPoblacionInicial, listaPoblacionInicialCadena, iteraci
         listaSiguienteGeneracion.append(hijo1)
         listaSiguienteGeneracion.append(hijo2)
     print (listaSiguienteGeneracion)
+    print("VVVVVVVVVVVVVV ",len(listaSiguienteGeneracion))
     
     return (listaSiguienteGeneracion)
 
@@ -281,9 +286,9 @@ for p in range(20): #corridas de 20 veces
         listaCorrectaNro.append(int(a))
     
     listaPoblacionInicial=listaCorrectaNro
-    print(listaPoblacionInicial)
+    print("listaCorrectaNro: ",listaPoblacionInicial, " cant: ",len(listaCorrectaNro))
     listaPoblacionInicialCadena=listaCorrectaCadena
-    print(listaPoblacionInicialCadena)
+    print("listaCorrectaCadena: ",listaPoblacionInicialCadena, " cant: ",len(listaCorrectaCadena))
 
 #tablaDatos = pd.DataFrame({'min fit': listaMinimosFit, 'max fit': listaMaximosFit, 'promedio fit': listaPromFit,
                            #'min obj': listaMinimosObj, 'max obj': listaMaximosObj, 'promedio obj': listaPromObj})

@@ -80,10 +80,35 @@ print(tabla)
 
 '''
 
-lista=[1,2,3,4,5,5]
-print(lista)
-lista=[]
-print(lista)
+from random import randint
+from math import sqrt
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+
+listamin=[1,2,3,4,5]
+listamax=[1,3,6,9,8]
+listaprob=[2,3,6,9,8]
+
+tablaMinFit = pd.DataFrame({'Min Fitness': listamin})
+print(tablaMinFit)
+tablaMaxFit = pd.DataFrame({'Max Fitness': listamax})
+print(tablaMaxFit)
+tablaProbFit = pd.DataFrame({'Probabilidad Fitness': listaprob})
+print(tablaProbFit)
+
+plt.style.use('default')
+plt.plot(tablaMinFit, label='Min Fitness')
+plt.plot(tablaMaxFit, label='Max Fitness')
+plt.plot(tablaProbFit, label='Probabilidad Fitness')
+plt.legend()
+plt.title('Fitness')
+plt.xlabel('generaciones')
+plt.grid(True)
+plt.show()
+
+
+
 
 
 

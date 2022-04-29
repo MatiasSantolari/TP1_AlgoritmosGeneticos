@@ -1,6 +1,7 @@
 import random
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
 
 # definicion de variables globales
 probabilidadCrossover = 0.75
@@ -139,6 +140,47 @@ def mutacion(cromo1): #le paso el cromosoma despues de haber con el croosover (p
         else:
             cromo1[i]=0
     return cromo1 #cromo1 es un cromosoma, que a la vez es una lista de genes donde c/gen es un ENTERO binario
+
+#Funciones para graficar:
+def graficarFitness(min, max, prom):
+    plt.style.use('default')
+    plt.plot(min, label='Minimo Fitness')
+    plt.plot(max, label='Maximo Fitness')
+    plt.plot(prom, label='Promedio Fitness')
+    plt.legend()
+    plt.title('Fitness')
+    plt.xlabel('Generaciones')
+    plt.grid(True)
+    plt.show()
+
+
+def graficarObj(min, max, prom):
+    plt.style.use('default')
+    plt.plot(min, label='Minima Funcion Objetivo')
+    plt.plot(max, label='Maxima Funcion Objetivo')
+    plt.plot(prom, label='Promedio Funcion Objetivo')
+    plt.legend()
+    plt.title('Funcion Objetivo')
+    plt.xlabel('Generaciones')
+    plt.grid(True)
+    plt.show()
+
+def graficarTodo(minF, maxF, promF, minO, maxO, promO):
+    plt.style.use('default')
+    plt.plot(minF, label='Minimo Fitness')
+    plt.plot(maxF, label='Maximo Fitness')
+    plt.plot(promF, label='Promedio Fitness')
+    plt.plot(minO, label='Minima Funcion Objetivo')
+    plt.plot(maxO, label='Maxima Funcion Objetivo')
+    plt.plot(promO, label='Promedio Funcion Objetivo')
+    plt.legend()
+    plt.title('Fitness + Funcion Objetivo')
+    plt.xlabel('Generaciones')
+    plt.grid(True)
+    plt.show()
+
+
+
         
 #-----------------------------------------------------------------------------
 
@@ -236,7 +278,7 @@ def funcionPrincipal(listaPoblacionInicial, listaPoblacionInicialCadena, iteraci
 
 
 
-#--------------------------------------------------------------------------------------------   
+#--------------------------------------20------------------------------------------------------
 poblacion = []
 lista = []
 listaPoblacionInicialCadena = [] #lista de cromosomas binarios en formato string 
@@ -290,9 +332,23 @@ for p in range(20): #corridas de 20 veces
     listaPoblacionInicialCadena=listaCorrectaCadena
     print("listaCorrectaCadena: ",listaPoblacionInicialCadena, " cant: ",len(listaCorrectaCadena))
 
-#tablaDatos = pd.DataFrame({'min fit': listaMinimosFit, 'max fit': listaMaximosFit, 'promedio fit': listaPromFit,
-                           #'min obj': listaMinimosObj, 'max obj': listaMaximosObj, 'promedio obj': listaPromObj})
-#print(tablaDatos)
+tablaDatos = pd.DataFrame({'min fit': listaMinimosFit, 'max fit': listaMaximosFit, 'promedio fit': listaPromFit,
+                           'min obj': listaMinimosObj, 'max obj': listaMaximosObj, 'promedio obj': listaPromObj})
+print(tablaDatos)
+
+###################################################33333
+tablaMinFit = pd.DataFrame({'Min Fitness': listaMinimosFit})
+tablaMaxFit = pd.DataFrame({'Max Fitness': listaMaximosFit})
+tablaProbFit = pd.DataFrame({'Prom Fitness': listaPromFit})
+
+tablaMinObj = pd.DataFrame({'Min Obj': listaMinimosObj})
+tablaMaxObj = pd.DataFrame({'Max Obj': listaMaximosObj})
+tablaProbObj = pd.DataFrame({'Prom Obj': listaPromObj})
+
+
+graficarFitness(tablaMinFit,tablaMaxFit,tablaProbFit)
+graficarObj(tablaMinObj,tablaMaxObj,tablaProbObj)
+graficarTodo(tablaMinFit,tablaMaxFit,tablaProbFit,tablaMinObj,tablaMaxObj,tablaProbObj)
 
     
 

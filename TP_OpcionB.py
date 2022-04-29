@@ -161,6 +161,47 @@ def mutacion(cromo1): #le paso el cromosoma despues de haber con el croosover (p
         else:
             cromo1[i]=0
     return cromo1 #cromo1 es un cromosoma, que a la vez es una lista de genes donde c/gen es un ENTERO binario
+
+
+#Funciones para graficar:
+def graficarFitness(min, max, prom):
+    plt.style.use('default')
+    plt.plot(min, label='Minimo Fitness')
+    plt.plot(max, label='Maximo Fitness')
+    plt.plot(prom, label='Promedio Fitness')
+    plt.legend()
+    plt.title('Fitness')
+    plt.xlabel('Generaciones')
+    plt.grid(True)
+    plt.show()
+
+
+def graficarObj(min, max, prom):
+    plt.style.use('default')
+    plt.plot(min, label='Minima Funcion Objetivo')
+    plt.plot(max, label='Maxima Funcion Objetivo')
+    plt.plot(prom, label='Promedio Funcion Objetivo')
+    plt.legend()
+    plt.title('Funcion Objetivo')
+    plt.xlabel('Generaciones')
+    plt.grid(True)
+    plt.show()
+
+def graficarTodo(minF, maxF, promF, minO, maxO, promO):
+    plt.style.use('default')
+    plt.plot(minF, label='Minimo Fitness')
+    plt.plot(maxF, label='Maximo Fitness')
+    plt.plot(promF, label='Promedio Fitness')
+    plt.plot(minO, label='Minima Funcion Objetivo')
+    plt.plot(maxO, label='Maxima Funcion Objetivo')
+    plt.plot(promO, label='Promedio Funcion Objetivo')
+    plt.legend()
+    plt.title('Fitness + Funcion Objetivo')
+    plt.xlabel('Generaciones')
+    plt.grid(True)
+    plt.show()
+
+
         
 #-----------------------------------------------------------------------------
 
@@ -264,60 +305,98 @@ def funcionPrincipal(listaPoblacionInicial, listaPoblacionInicialCadena, iteraci
 
 
 
-#--------------------------------------------------------------------------------------------   
-poblacion = []
-lista = []
-listaPoblacionInicialCadena = [] #lista de cromosomas binarios en formato string 
-listaPoblacionInicial = [] #lista de cromosomas con digitos binarios en formato enteros
-listaDecimales = [] # lista que contiene a los cromosomas en valor decimal correspondiente en formato entero
-listaFunObj = [] #lista que contiene los valores en formato FLOTANTE de la funcion objetivo de cada cromosoma correspondiente a la posicion en listaDecimales
-listaFitness = [] #lista de los valores de la funcion Fitness aplicadas a los cromosomas de la listaFunObj en formato flotante
-listaPadres = [] #lista que tiene los cromosomas en formato STRING que seran los padres para obtener a los hijos de la siguiente generacion
-listaSiguienteGeneracion = [] #lista que tiene listas en donde c/u de esas listas es un cromosoma, es decir, es una lista de 30 posiciones donde cada posicion es un gen ENTERO binario
-maxiObj = 0 #contiene el valor maximo de la funcion objetivo del cromosoma en la listaFuncObj en formato FLOTANTE
-miniIbj = 0 #contiene el valor minimo de la funcion objetivo del cromosoma en la listaFuncObj en formato FLOTANTE
-prome = 0 #contiene el promedio de la lista que tiene los valores de la funcion objetivo de cada cromosoma, es decir de la poblacion, en formato FLOTANTE
-cromosomaMaximo = 0 #contiene el cromosoma binario en formato ENTERO con el mayor valor de la funcion objetivo
+#--------------------------------------------------------------------------------------------
+def ejecutarProgramaPorXIteracion(nroIteraciones):
+    poblacion = []
+    lista = []
+    listaPoblacionInicialCadena = []  # lista de cromosomas binarios en formato string
+    listaPoblacionInicial = []  # lista de cromosomas con digitos binarios en formato enteros
+    listaDecimales = []  # lista que contiene a los cromosomas en valor decimal correspondiente en formato entero
+    listaFunObj = []  # lista que contiene los valores en formato FLOTANTE de la funcion objetivo de cada cromosoma correspondiente a la posicion en listaDecimales
+    listaFitness = []  # lista de los valores de la funcion Fitness aplicadas a los cromosomas de la listaFunObj en formato flotante
+    listaPadres = []  # lista que tiene los cromosomas en formato STRING que seran los padres para obtener a los hijos de la siguiente generacion
+    listaSiguienteGeneracion = []  # lista que tiene listas en donde c/u de esas listas es un cromosoma, es decir, es una lista de 30 posiciones donde cada posicion es un gen ENTERO binario
+    maxiObj = 0  # contiene el valor maximo de la funcion objetivo del cromosoma en la listaFuncObj en formato FLOTANTE
+    miniIbj = 0  # contiene el valor minimo de la funcion objetivo del cromosoma en la listaFuncObj en formato FLOTANTE
+    prome = 0  # contiene el promedio de la lista que tiene los valores de la funcion objetivo de cada cromosoma, es decir de la poblacion, en formato FLOTANTE
+    cromosomaMaximo = 0  # contiene el cromosoma binario en formato ENTERO con el mayor valor de la funcion objetivo
 
-#Se creau una sola vez la poblacion inicial (definir los cromosomas...)
-#nuevaGeneracion = lista de cromosomas donde cada cromosoma es una lista de ENTEROS
-for j in range(10):
-    cromo = definirCromosoma() #definirCromosoma devuelve los 30 digitos binarios pero en formatio string
-    listaPoblacionInicialCadena.append(cromo) # esta lista es una lista de cromosomas en formato string 
-    num = int(cromo) #num tiene el cromosoma pero en formato entero 
-    listaPoblacionInicial.append(num) #esta lista es una lista de cromosomas en formato enteros
-print("Los cromosomas seleccionados son ", listaPoblacionInicial)  # contiene los cromosomas en formato enteros
-print("los cromosomas de listaPoblacionInicialCadema es ", listaPoblacionInicialCadena )
-listaPoblacionInicial.sort() # con la funcion sort ordena la lista de menor a mayor
-listaPoblacionInicialCadena.sort()
-print()
-print()
-listaMinimosFit=[]
-listaMaximosFit=[]
-listaPromFit=[]
-listaMinimosObj=[]
-listaMaximosObj=[]
-listaPromObj=[]
+    # Se creau una sola vez la poblacion inicial (definir los cromosomas...)
+    # nuevaGeneracion = lista de cromosomas donde cada cromosoma es una lista de ENTEROS
+    for j in range(10):
+        cromo = definirCromosoma()  # definirCromosoma devuelve los 30 digitos binarios pero en formatio string
+        listaPoblacionInicialCadena.append(cromo)  # esta lista es una lista de cromosomas en formato string
+        num = int(cromo)  # num tiene el cromosoma pero en formato entero
+        listaPoblacionInicial.append(num)  # esta lista es una lista de cromosomas en formato enteros
+    print("Los cromosomas seleccionados son ", listaPoblacionInicial)  # contiene los cromosomas en formato enteros
+    print("los cromosomas de listaPoblacionInicialCadema es ", listaPoblacionInicialCadena)
+    listaPoblacionInicial.sort()  # con la funcion sort ordena la lista de menor a mayor
+    listaPoblacionInicialCadena.sort()
+    print()
+    print()
+    listaMinimosFit = []
+    listaMaximosFit = []
+    listaPromFit = []
+    listaMinimosObj = []
+    listaMaximosObj = []
+    listaPromObj = []
 
-for p in range(100): #corridas de 20 veces
-    
-    nuevaGeneracion = funcionPrincipal(listaPoblacionInicial, listaPoblacionInicialCadena, p+1, listaMinimosFit, listaMaximosFit, listaPromFit, listaMinimosObj, listaMaximosObj, listaPromObj)
-    listaCorrectaCadena = []
-    listaCorrectaNro = []
+    for p in range(nroIteraciones):  # corridas
 
-    for i in range(len(nuevaGeneracion)):
-        print()
-        a = ""
-        for j in nuevaGeneracion[i]:
-            a += str(j)
-        listaCorrectaCadena.append(a)
-        listaCorrectaNro.append(int(a))
-    
-    listaPoblacionInicial=listaCorrectaNro
-    print("listaCorrectaNro: ",listaPoblacionInicial, " cant: ",len(listaCorrectaNro))
-    listaPoblacionInicialCadena=listaCorrectaCadena
-    print("listaCorrectaCadena: ",listaPoblacionInicialCadena, " cant: ",len(listaCorrectaCadena))
+        nuevaGeneracion = funcionPrincipal(listaPoblacionInicial, listaPoblacionInicialCadena, p + 1, listaMinimosFit,
+                                           listaMaximosFit, listaPromFit, listaMinimosObj, listaMaximosObj,
+                                           listaPromObj)
+        listaCorrectaCadena = []
+        listaCorrectaNro = []
 
-#tablaDatos = pd.DataFrame({'min fit': listaMinimosFit, 'max fit': listaMaximosFit, 'promedio fit': listaPromFit,
-                           #'min obj': listaMinimosObj, 'max obj': listaMaximosObj, 'promedio obj': listaPromObj})
-#print(tablaDatos)
+        for i in range(len(nuevaGeneracion)):
+            print()
+            a = ""
+            for j in nuevaGeneracion[i]:
+                a += str(j)
+            listaCorrectaCadena.append(a)
+            listaCorrectaNro.append(int(a))
+
+        listaPoblacionInicial = listaCorrectaNro
+        print("listaCorrectaNro: ", listaPoblacionInicial, " cant: ", len(listaCorrectaNro))
+        listaPoblacionInicialCadena = listaCorrectaCadena
+        print("listaCorrectaCadena: ", listaPoblacionInicialCadena, " cant: ", len(listaCorrectaCadena))
+
+    tablaDatos = pd.DataFrame({'min fit': listaMinimosFit, 'max fit': listaMaximosFit, 'promedio fit': listaPromFit,
+                               'min obj': listaMinimosObj, 'max obj': listaMaximosObj, 'promedio obj': listaPromObj})
+    print(tablaDatos)
+
+    #########################################################
+    tablaMinFit = pd.DataFrame({'Min Fitness': listaMinimosFit})
+    tablaMaxFit = pd.DataFrame({'Max Fitness': listaMaximosFit})
+    tablaProbFit = pd.DataFrame({'Prom Fitness': listaPromFit})
+
+    tablaMinObj = pd.DataFrame({'Min Obj': listaMinimosObj})
+    tablaMaxObj = pd.DataFrame({'Max Obj': listaMaximosObj})
+    tablaProbObj = pd.DataFrame({'Prom Obj': listaPromObj})
+
+    graficarFitness(tablaMinFit, tablaMaxFit, tablaProbFit)
+    graficarObj(tablaMinObj, tablaMaxObj, tablaProbObj)
+    graficarTodo(tablaMinFit, tablaMaxFit, tablaProbFit, tablaMinObj, tablaMaxObj, tablaProbObj)
+
+
+
+##############################Programa Principal#####################################3
+print('###########################################################################')
+print('###########################################################################')
+print('#############################  20  ########################################')
+print('###########################################################################')
+print('###########################################################################')
+ejecutarProgramaPorXIteracion(20)
+print('###########################################################################')
+print('###########################################################################')
+print('#############################  100  #######################################')
+print('###########################################################################')
+print('###########################################################################')
+ejecutarProgramaPorXIteracion(100)
+print('###########################################################################')
+print('###########################################################################')
+print('#############################  200  #######################################')
+print('###########################################################################')
+print('###########################################################################')
+ejecutarProgramaPorXIteracion(200)

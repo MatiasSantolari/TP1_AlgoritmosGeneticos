@@ -36,7 +36,7 @@ def promedio(listaFunObj):  # calcula el promedio
     return promedio
 print(promedio(listaFunObj))"""#
 
-ruleta = [1,1,1,1, 3, 4, 6, 15, 22, 46]
+"""ruleta = [1,1,1,1, 3, 4, 6, 15, 22, 46]
 poblacion = ["a","b","c","d","e","f","g","h","i",'j']
 posiciones = int(sum(ruleta))
 pos = 0
@@ -60,6 +60,22 @@ for k in range(10):
     padres.append(ruletaDefinitiva[a]) # se agrega en padres el cromosoma en formato STRING en la lista ruletaDefinitiva en la posicion elegida aleatoriamente. Seria "El lugar donde cayo la bola al girar la ruleta"
 print(padres) #es la lista con los cromosomas en formato STRING que fueron seleccionados en la lista ruletaDefinitiva al girarla 10 veces, ya que los padres deben ser 10"""
 
+def elitismo(listaPoblacionInicialCadena, listaFitness):
+    listaFit=listaFitness.copy()
+    cromosomasSeleccionados=[]
+    for d in range(2):
+        fitMax = max(listaFit)
+        print(fitMax)
+        indice = listaFit.index(fitMax) #Los otros elementos con el mismo valor se ignoran porque ya ha encontrado una coincidencia dentro de la lista.
+        print("indice donde esta el valor maximo en listaFit: ",indice)
+        cromosomasSeleccionados.append(listaPoblacionInicialCadena[indice])
+        listaFit[indice] = 0
+        print("listaFit al sacar el maximo: ",listaFit)
+    return cromosomasSeleccionados
 
+a = ["a", "b", "c", "e", "f"]
+b = [4,6,6,3,2]
+c = elitismo(a, b)
+print(c)
 
 

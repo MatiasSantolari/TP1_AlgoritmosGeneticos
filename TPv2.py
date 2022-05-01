@@ -272,7 +272,6 @@ def funcionPrincipal(listaPoblacionInicial, listaPoblacionInicialCadena, iteraci
         listaSiguienteGeneracion.append(hijo1)
         listaSiguienteGeneracion.append(hijo2)
     print (listaSiguienteGeneracion)
-    print("VVVVVVVVVVVVVV ",len(listaSiguienteGeneracion))
     
     return (listaSiguienteGeneracion)
 

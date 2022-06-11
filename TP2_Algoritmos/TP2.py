@@ -15,11 +15,23 @@ def generarSubConjuntos(list_name): #Esta funcion genera todos los subconjuntos 
     p = chain.from_iterable(combinations(s, r) for r in range(len(s)+1))
     return p # lo que retorna es una lista con todos los posibles subconjuntos que se pueden armar
 
+def sumarVolumenes(solucion, diccionarioObjeto):
+    total = 0
+    for i in solucion:
+        a = diccionarioObjeto.get(i)
+        print (a[0])
+        total = total + a [0]
+    print ("el total es: ", total)
+    return total
+
 listaObjetos = list(diccionarioObjeto.keys())
 for i in listaObjetos:
     print (i)
 
 print("Los subconjuntos posibles a armar son:")
-for x in generarSubConjuntos(listaObjetos):
+soluciones = generarSubConjuntos(listaObjetos)
+for x in soluciones:
      print(x)
 
+p = diccionarioObjeto.get('1')
+print (p[0])

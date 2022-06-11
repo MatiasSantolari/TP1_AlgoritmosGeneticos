@@ -13,7 +13,15 @@ diccionarioObjeto = {'1' : [150, 20], '2' : [325, 40], '3': [600, 50], '4': [805
 def generarSubConjuntos(list_name): #Esta funcion genera todos los subconjuntos de soluciones posibles que se pueden armar
     s = list(list_name)
     p = chain.from_iterable(combinations(s, r) for r in range(len(s)+1))
-    return p # lo que retorna es una lista con todos los posibles subconjuntos que se pueden armar
+    lista = list(p)
+    # print (lista)
+    for x in lista:
+        #print(x)
+        if len(x) == 0: #saco de la lista la solucion vacia 
+            lista.remove(x)
+    #print (lista)
+    p = tuple(lista)        
+    return p # lo que retorna son tuplas que representan todos los posibles subconjuntos que se pueden armar
 
 def sumarVolumenes(solucion, diccionarioObjeto):
     total = 0
@@ -24,8 +32,8 @@ def sumarVolumenes(solucion, diccionarioObjeto):
     #print ("el total es: ", total)
     return total
 
-def validarRestriccion(volumenTotal):
-    if volumenTotal <= 1200:
+def verificarRestriccion(volumenTotal):
+    if volumenTotal <= 4200:
         return True
     else:
         return False
@@ -41,7 +49,7 @@ for x in soluciones:
      print(x)
      volumenTotal = sumarVolumenes(x, diccionarioObjeto)
      print("la suma de todos los volumenes de esta solucion es: ", volumenTotal)
-     valido = validarRestriccion(volumenTotal)
+     valido = verificarRestriccion(volumenTotal)
      if valido:
          listaSolucionesValidas.append(x)
 print("Las soluciones que cumplen la restriccion son: ")

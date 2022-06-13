@@ -33,18 +33,31 @@ def sumarVolumenes(solucion, diccionarioObjeto):
     return total
 
 def verificarRestriccion(volumenTotal):
-    if volumenTotal <= 4200:
+    if volumenTotal <= 1200: # ACA VA 4200 POR EL VOLUMEN DE LA MOCHILA
         return True
     else:
         return False
 
-listaObjetos = list(diccionarioObjeto.keys())
+def calcularValor(solucionValida,diccionarioObjeto):
+    valorTotal = 0
+    for l in solucionValida:
+        b = diccionarioObjeto.get(l)
+        print("valor: ",b[1])
+        valorTotal = valorTotal + b[1]
+    print("el valor total del subconjunto es: ", valorTotal)
+    return valorTotal
+
+listaObjetos = list(diccionarioObjeto.keys()) #genero una lista con las claves de cada objero
 for i in listaObjetos:
     print (i)
 
 print("Los subconjuntos posibles a armar son:")
-soluciones = generarSubConjuntos(listaObjetos)
+soluciones = generarSubConjuntos(listaObjetos) # soluciones es una tupla con todos los subconjuntos posibles de todos los indices de los objetos
 listaSolucionesValidas = []
+listaValoresSoluciones = []
+valorMaximo = 0
+print("las soluciones posibles formadas por los numeros de los objetos son: ", soluciones)
+print()
 for x in soluciones:
      print(x)
      volumenTotal = sumarVolumenes(x, diccionarioObjeto)
@@ -52,6 +65,14 @@ for x in soluciones:
      valido = verificarRestriccion(volumenTotal)
      if valido:
          listaSolucionesValidas.append(x)
-print("Las soluciones que cumplen la restriccion son: ")
+print("Las soluciones que cumplen la restriccion son: ", listaSolucionesValidas)
 for i in listaSolucionesValidas:
     print(i)
+    v = calcularValor(i,diccionarioObjeto)
+    listaValoresSoluciones.append(v)
+    if (v > valorMaximo):
+        valorMaximo = v
+        solucionMaxima = i
+print (listaValoresSoluciones)
+# valorMaximo = max(listaValoresSoluciones)
+print("el valor mas alto es: ", valorMaximo, "correspondiente a la solucion: ", solucionMaxima)

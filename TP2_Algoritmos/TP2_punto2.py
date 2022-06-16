@@ -33,7 +33,7 @@ def busquedaHeuristica(lista, diccionarioObjeto):
 listaValores = {}
 listaObjetos = list(diccionarioObjeto.keys())
 listaValores = busquedaHeuristica(listaObjetos, diccionarioObjeto)
-listaOrdenada = sorted(listaValores.items(), key=operator.itemgetter(1))
+listaOrdenada = sorted(listaValores.items(), key=operator.itemgetter(1), reverse=True)
 print(listaOrdenada)
 
 

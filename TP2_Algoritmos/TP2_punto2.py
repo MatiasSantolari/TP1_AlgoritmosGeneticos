@@ -29,13 +29,34 @@ def busquedaHeuristica(lista, diccionarioObjeto):
     print (dic)    
     return dic
 
+def llenarMochila (listaOrdenada, diccionarioObjeto ):
+    mochila = []
+    volumenLibre = 1200
+    conjunto = []
+    for v in listaOrdenada:
+        print("v:",v)
+        obj = diccionarioObjeto.get(v[0])
+        print("obj",obj)
+        volumen = obj[0]
+        if volumen < volumenLibre :
+            print("el objeto ",v[0], " entra en la mochila")
+            volumenLibre = volumenLibre - obj[0]
+            print("el espacio libre que queda es ", volumenLibre)
+            print()
+            conjunto.append(v[0])
+        else:
+            print("No hay lugar")
+            print()
+    return conjunto
 
 listaValores = {}
+objetosMochila = []
 listaObjetos = list(diccionarioObjeto.keys())
 listaValores = busquedaHeuristica(listaObjetos, diccionarioObjeto)
 listaOrdenada = sorted(listaValores.items(), key=operator.itemgetter(1), reverse=True)
 print(listaOrdenada)
-
+objetosMochila.extend(llenarMochila(listaOrdenada, diccionarioObjeto))
+print("los objetos que entraron en la mochila son",objetosMochila)
 
 
 

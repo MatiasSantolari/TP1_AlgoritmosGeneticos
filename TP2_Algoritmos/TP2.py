@@ -74,5 +74,6 @@ for i in listaSolucionesValidas:
         valorMaximo = v
         solucionMaxima = i
 print (listaValoresSoluciones)
+volumenMaximo = sumarVolumenes(solucionMaxima,diccionarioObjeto)
 # valorMaximo = max(listaValoresSoluciones)
-print("el valor mas alto es: ", valorMaximo, "correspondiente a la solucion: ", solucionMaxima)
+print("el valor mas alto es: ", valorMaximo, " con un volumen de: ", volumenMaximo, " correspondiente a la solucion: ", solucionMaxima)

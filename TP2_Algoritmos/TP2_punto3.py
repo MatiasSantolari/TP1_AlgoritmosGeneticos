@@ -23,3 +23,10 @@ def sumarPesos(solucion, diccionarioObjeto):
         print (a[0])
         total = total + a [0]
     return total
+
+def verificarRestriccion(pesoTotal):
+    if pesoTotal <= 3000: 
+        return True
+    else:
+        return False
+    

@@ -47,6 +47,7 @@ def calcularValor(solucionValida,diccionarioObjeto):
     print("el valor total del subconjunto es: ", valorTotal)
     return valorTotal
 
+#Arranca aca el programa principal
 listaObjetos = list(diccionarioObjeto.keys()) #genero una lista con las claves de cada objero
 for i in listaObjetos:
     print (i)
@@ -58,14 +59,14 @@ listaValoresSoluciones = []
 valorMaximo = 0
 print("las soluciones posibles formadas por los numeros de los objetos son: ", soluciones)
 print()
-for x in soluciones:
+for x in soluciones: #soluciones es una tupla que contiene todos los subconjuntos posibles de objetos (pero solo los indices)
      print(x)
      volumenTotal = sumarVolumenes(x, diccionarioObjeto)
      print("la suma de todos los volumenes de esta solucion es: ", volumenTotal)
      valido = verificarRestriccion(volumenTotal)
      if valido:
          listaSolucionesValidas.append(x)
-print("Las soluciones que cumplen la restriccion son: ", listaSolucionesValidas)
+print("Las soluciones que cumplen la restriccion son: ", listaSolucionesValidas) #listaSoluciones es una lista que contiene tuplas donde cada tupla contiene el subconjunto de indices de los objetos que cumple con la restriccion
 for i in listaSolucionesValidas:
     print(i)
     v = calcularValor(i,diccionarioObjeto)

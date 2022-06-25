@@ -15,3 +15,11 @@ def generarSubConjuntos(list_name): #Esta funcion genera todos los subconjuntos 
     #print (lista)
     p = tuple(lista)        
     return p # lo que retorna son tuplas que representan todos los posibles subconjuntos que se pueden armar
+
+def sumarPesos(solucion, diccionarioObjeto):
+    total = 0
+    for i in solucion:
+        a = diccionarioObjeto.get(i)
+        print (a[0])
+        total = total + a [0]
+    return total

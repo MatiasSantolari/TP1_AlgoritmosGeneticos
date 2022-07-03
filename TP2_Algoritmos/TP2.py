@@ -33,7 +33,7 @@ def sumarVolumenes(solucion, diccionarioObjeto):
     return total
 
 def verificarRestriccion(volumenTotal):
-    if volumenTotal <= 4200: # ACA VA 4200 POR EL VOLUMEN DE LA MOCHILA
+    if volumenTotal <= volumenMochila: # ACA VA 4200 POR EL VOLUMEN DE LA MOCHILA
         return True
     else:
         return False

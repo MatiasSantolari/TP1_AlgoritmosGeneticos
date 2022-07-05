@@ -1,7 +1,3 @@
-
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
 from itertools import chain, combinations
 
 # Definicion de variables globales
@@ -27,7 +23,7 @@ def sumarVolumenes(solucion, diccionarioObjeto):
     total = 0
     for i in solucion:
         a = diccionarioObjeto.get(i)
-        print (a[0])
+        #print (a[0])
         total = total + a [0]
     #print ("el total es: ", total)
     return total
@@ -42,39 +38,38 @@ def calcularValor(solucionValida,diccionarioObjeto):
     valorTotal = 0
     for l in solucionValida:
         b = diccionarioObjeto.get(l)
-        print("valor: ",b[1])
+        #print("valor: ",b[1])
         valorTotal = valorTotal + b[1]
-    print("el valor total del subconjunto es: ", valorTotal)
+    #print("el valor total del subconjunto es: ", valorTotal)
     return valorTotal
 
 #Arranca aca el programa principal
 listaObjetos = list(diccionarioObjetos.keys()) #genero una lista con las claves de cada objero
-for i in listaObjetos:
-    print (i)
-
-print("Los subconjuntos posibles a armar son:")
+#for i in listaObjetos:
+#    print (i)
+# print("Los subconjuntos posibles a armar son:")
 soluciones = generarSubConjuntos(listaObjetos) # soluciones es una tupla con todos los subconjuntos posibles de todos los indices de los objetos
 listaSolucionesValidas = []
 listaValoresSoluciones = []
 valorMaximo = 0
-print("las soluciones posibles formadas por los numeros de los objetos son: ", soluciones)
-print()
+#print("las soluciones posibles formadas por los numeros de los objetos son: ", soluciones)
+#print()
 for x in soluciones: #soluciones es una tupla que contiene todos los subconjuntos posibles de objetos (pero solo los indices)
-     print(x)
+     #print(x)
      volumenTotal = sumarVolumenes(x, diccionarioObjetos)
-     print("la suma de todos los volumenes de esta solucion es: ", volumenTotal)
+     #print("la suma de todos los volumenes de esta solucion es: ", volumenTotal)
      valido = verificarRestriccion(volumenTotal)
      if valido:
          listaSolucionesValidas.append(x)
-print("Las soluciones que cumplen la restriccion son: ", listaSolucionesValidas) #listaSoluciones es una lista que contiene tuplas donde cada tupla contiene el subconjunto de indices de los objetos que cumple con la restriccion
+#print("Las soluciones que cumplen la restriccion son: ", listaSolucionesValidas) #listaSoluciones es una lista que contiene tuplas donde cada tupla contiene el subconjunto de indices de los objetos que cumple con la restriccion
 for i in listaSolucionesValidas:
-    print(i)
+    #print(i)
     v = calcularValor(i,diccionarioObjetos)
     listaValoresSoluciones.append(v)
     if (v > valorMaximo):
         valorMaximo = v
         solucionMaxima = i
-print (listaValoresSoluciones)
+#print (listaValoresSoluciones)
 volumenMaximo = sumarVolumenes(solucionMaxima,diccionarioObjetos)
 # valorMaximo = max(listaValoresSoluciones)
-print("el valor mas alto es: ", valorMaximo, " con un volumen de: ", volumenMaximo, " correspondiente a la solucion: ", solucionMaxima)
+print("el valor mas alto es: ", valorMaximo, " con un volumen de: ", volumenMaximo, "cm3 correspondiente a la solucion: ", solucionMaxima)

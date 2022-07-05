@@ -23,10 +23,11 @@ def busquedaHeuristica(lista, diccionarioObjeto):
         den = li[0]
         valor = num / den
         listaV.append(valor)
-        print(t)
-        print(valor)
+        print("objeto: ",t)
+        print("valor / volumen =", num,"/",den,"=", valor)
         print()
         dic [t] = valor
+    print("Objetos con su respectivo resultado:")
     print (dic)    
     return dic
 
@@ -35,15 +36,15 @@ def llenarMochila (listaOrdenada, diccionarioObjeto ):
     volumenLibre = 4200
     conjunto = []
     for v in listaOrdenada:
-        print("v:",v)
+        print("Objeto ",v[0])
         obj = diccionarioObjeto.get(v[0])
-        print("obj:",obj[0], "cm3")
+        print("volumen:",obj[0], "cm3")
         volumen = obj[0]
         if volumen < volumenLibre :
             print("el objeto ",v[0], " entra en la mochila")
-            print(volumenLibre, "-", obj[0])
+            print(volumenLibre, "-", obj[0]," cm3")
             volumenLibre = volumenLibre - obj[0]
-            print("el espacio libre que queda es ", volumenLibre)
+            print("el espacio libre que queda es ", volumenLibre,"cm3")
             print()
             conjunto.append(v[0])
         else:
@@ -57,11 +58,14 @@ objetosMochila = []
 listaObjetos = list(diccionarioObjeto.keys())
 listaValores = busquedaHeuristica(listaObjetos, diccionarioObjeto)
 listaOrdenada = sorted(listaValores.items(), key=operator.itemgetter(1), reverse=True)
+print()
+print("Lista de objetos ordenada de mayor a menor segun resultado calculado anteriormente:")
 print(listaOrdenada)
+print()
 objetosMochila.extend(llenarMochila(listaOrdenada, diccionarioObjeto))
 for o in objetosMochila:
     vol= diccionarioObjeto.get(o)
-    print(vol)
+    # print(vol)
     volTotal= volTotal + vol[0]
 print("los objetos que entraron en la mochila son",objetosMochila, "con un volumen en total de:",volTotal,"cm3")
 
